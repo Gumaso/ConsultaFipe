@@ -52,10 +52,15 @@ public class Principal {
 
         modelosLista.modelos().forEach(obj -> modelandoDadosListModelos.add(new ModelandoDados(obj)));
         modelandoDadosListModelos.forEach(System.out::println);
-
+        System.out.println("Digite um trecho do nome do modelo: ");
         String trechoNomeModelo = sc.nextLine().toLowerCase();
         var modelandoDadosListModelosFiltrados = modelandoDadosListModelos.stream().filter(obj -> obj.getNomeMarca().toLowerCase().contains(trechoNomeModelo)).collect(Collectors.toList());
         modelandoDadosListModelosFiltrados.forEach(System.out::println);
-        
+        int codigoModelo = sc.nextInt();
+        sc.nextLine();
+
+        BASE_URL += codigoModelo + "/anos/";
+        json = requisicao.devolvendoJson(BASE_URL);
+        System.out.println(json);
     }
 }
