@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Principal {
     private Requisicao requisicao = new Requisicao();
@@ -25,7 +26,7 @@ public class Principal {
                 caminhoes
                 """);
 
-        String escolhaMenu = sc.nextLine();
+        String escolhaMenu = sc.nextLine().toLowerCase();
         String json = "";
         if (escolhaMenu.toLowerCase().contains("carr")){
             BASE_URL += "carros/marcas/";
@@ -51,5 +52,10 @@ public class Principal {
 
         modelosLista.modelos().forEach(obj -> modelandoDadosListModelos.add(new ModelandoDados(obj)));
         modelandoDadosListModelos.forEach(System.out::println);
+
+        String trechoNomeModelo = sc.nextLine().toLowerCase();
+        var modelandoDadosListModelosFiltrados = modelandoDadosListModelos.stream().filter(obj -> obj.getNomeMarca().toLowerCase().contains(trechoNomeModelo)).collect(Collectors.toList());
+        modelandoDadosListModelosFiltrados.forEach(System.out::println);
+        
     }
 }
