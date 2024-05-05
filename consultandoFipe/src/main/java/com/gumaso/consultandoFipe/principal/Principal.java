@@ -1,9 +1,6 @@
 package com.gumaso.consultandoFipe.principal;
 
-import com.gumaso.consultandoFipe.models.Dados;
-import com.gumaso.consultandoFipe.models.DadosAnos;
-import com.gumaso.consultandoFipe.models.ModelandoDados;
-import com.gumaso.consultandoFipe.models.Modelos;
+import com.gumaso.consultandoFipe.models.*;
 import com.gumaso.consultandoFipe.services.ConverteDados;
 import com.gumaso.consultandoFipe.services.Requisicao;
 
@@ -62,7 +59,14 @@ public class Principal {
 
         BASE_URL += codigoModelo + "/anos/";
         json = requisicao.devolvendoJson(BASE_URL);
+
         List<DadosAnos> dadosAnosList = converteDados.obtendoListaDeDados(json, DadosAnos.class);
-        dadosAnosList.forEach(obj -> System.out.println(obj.codigo()));
+        List<ModelandoDadosVeiculos> dadosVeiculoLista = new ArrayList<>();
+        for (var objeto: dadosAnosList){
+            json = requisicao.devolvendoJson(BASE_URL + objeto.codigo());
+            DadosVeiculo veiculo = converteDados.obtendoDados(json, DadosVeiculo.class);
+            dadosVeiculoLista.add(new ModelandoDadosVeiculos(veiculo));
+        }
+        dadosVeiculoLista.stream().forEach(obj -> System.out.println(obj.toString()));
     }
 }
