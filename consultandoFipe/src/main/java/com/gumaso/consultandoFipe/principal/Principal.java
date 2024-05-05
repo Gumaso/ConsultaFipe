@@ -2,6 +2,7 @@ package com.gumaso.consultandoFipe.principal;
 
 import com.gumaso.consultandoFipe.models.Dados;
 import com.gumaso.consultandoFipe.models.ModelandoDados;
+import com.gumaso.consultandoFipe.models.Modelos;
 import com.gumaso.consultandoFipe.services.ConverteDados;
 import com.gumaso.consultandoFipe.services.Requisicao;
 
@@ -40,5 +41,15 @@ public class Principal {
         List<ModelandoDados> modelandoDadosList = new ArrayList<>();
         dadosLista.stream().forEach(obj -> modelandoDadosList.add(new ModelandoDados(obj)));
         modelandoDadosList.forEach(System.out::println);
+        System.out.println("Digite o código da marca: ");
+        int codigoMarca = sc.nextInt();
+        sc.nextLine();
+        BASE_URL += codigoMarca  + "/modelos/";
+        json = requisicao.devolvendoJson(BASE_URL);
+        Modelos modelosLista = converteDados.obtendoDados(json, Modelos.class);
+        List<ModelandoDados> modelandoDadosListModelos = new ArrayList<>();
+
+        modelosLista.modelos().forEach(obj -> modelandoDadosListModelos.add(new ModelandoDados(obj)));
+        modelandoDadosListModelos.forEach(System.out::println);
     }
 }
