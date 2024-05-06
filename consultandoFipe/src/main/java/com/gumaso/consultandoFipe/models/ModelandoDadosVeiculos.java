@@ -39,11 +39,13 @@ public class ModelandoDadosVeiculos {
 
     @Override
     public String toString() {
-        return "Informações do veiculo[ " +
-                " Marca: " + this.marca +
-                " Modelo: " + this.modelo +
-                " Ano de produção: " + this.ano +
-                " Valor: " + this.valor +
-                " Tipo de combustivel: " + this.combustivel + " ]";
+        return String.format("""
+                Informações do veiculo:
+                Marca: %s
+                Modelo: %s
+                Ano de produção: %s 
+                Valor: %s
+                Tipo de combustivel: %s
+                """, this.marca, this.modelo, this.ano, this.valor, this.combustivel);
     }
 }
